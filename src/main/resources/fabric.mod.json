@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "the-farthest-lands",
+	"version": "${version}",
+	"name": "The Farthest Lands",
+	"description": "Do you want to reach the Farthest?",
+	"authors": [
+		"Insomniac"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/The-Farthest-Lands"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/the-farthest-lands/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.insomniac.thefarthestlands.TheFarthestLands"
+		],
+		"client": [
+			"io.github.insomniac.thefarthestlands.client.TheFarthestLandsClient"
+		],
+		"fabric-datagen": [
+			"io.github.insomniac.thefarthestlands.TheFarthestLandsDataGenerator"
+		]
+	},
+	"mixins": [
+		"the-farthest-lands.mixins.json",
+		{
+			"config": "the-farthest-lands.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
