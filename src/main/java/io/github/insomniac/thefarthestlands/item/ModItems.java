@@ -18,6 +18,5 @@ public class ModItems {
 
     public static void registerModItems() {
         System.out.println("Registering Mod Items for The Farthest Lands"); //temp logging
-
     }
 }

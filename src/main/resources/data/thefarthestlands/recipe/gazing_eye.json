@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SWS",
+    "GEG",
+    "SGS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:soul_soil"
+    },
+    "W": {
+      "item": "minecraft:wither_rose"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "id": "thefarthestlands:gazing_eye",
+    "count": 1
+  }
+}

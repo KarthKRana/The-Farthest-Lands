@@ -12,9 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Set;
 
 public class FarthestPortalBlock extends Block {
-    public FarthestPortalBlock(Properties properties) {
-        super(properties);
-    }
+    public FarthestPortalBlock(Properties properties) { super(properties); }
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {

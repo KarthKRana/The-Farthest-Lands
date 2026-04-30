@@ -1,13 +1,14 @@
 package io.github.insomniac.thefarthestlands.block;
 
-//import io.github.insomniac.thefarthestlands.TheFarthestLands;
+import com.sun.jna.platform.unix.X11;
+import io.github.insomniac.thefarthestlands.TheFarthestLands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ModBlocks {
@@ -17,6 +18,13 @@ public class ModBlocks {
     public static final Block FARTHEST_PORTAL = registerBlock("farthest_portal",
             new FarthestPortalBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().strength(-1.0f)));
 
+
+    public static final Block FAR_SAND = registerBlock("far_sand",
+            new FarSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
+                    .sound(SoundType.SOUL_SAND)
+            ));
+
+    //[[======================================HELPER METHODS======================================]]\\
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(BuiltInRegistries.BLOCK,

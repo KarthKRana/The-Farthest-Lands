@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "thefarthestlands:gazing_eye"
+    ]
+  },
+  "criteria": {
+    "has_wither_rose": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:wither_rose"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "thefarthestlands:gazing_eye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wither_rose",
+      "has_the_recipe"
+    ]
+  ]
+}

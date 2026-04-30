@@ -46,7 +46,7 @@ public class GazingEyeItem extends Item {
 
     /**
      * Scans a 10-block radius around the placed eye.
-     * If 12 filled frames are found, the portal is considered 'complete'.
+     * If 12 filled frames are found, the portal is considered complete.
      */
     private boolean checkPortalStructure(Level level, BlockPos clickedPos) {
         int eyeCount = 0;
@@ -76,14 +76,12 @@ public class GazingEyeItem extends Item {
         return false;
     }
 
-    // Helper to ensure we found the actual 3x3 hole
+    // Helper to find the actual 3x3 hole
     private boolean isCorrectPortalCenter(Level level, BlockPos pos) {
         // Check if a 3x3 area is all air/replaceable
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
-                if (!level.getBlockState(pos.offset(x, 0, z)).isAir()) {
-                    return false;
-                }
+                if (!level.getBlockState(pos.offset(x, 0, z)).isAir()) { return false; }
             }
         }
         // Check if there's a frame at least 2 blocks away to verify it's the portal
@@ -92,14 +90,13 @@ public class GazingEyeItem extends Item {
     }
 
     private boolean isFrameBorder(Level level, BlockPos center) {
-        // Check if the blocks at +/- 2 blocks away are portal frames
+        // Check if the blocks are ± 2 blocks away are portal frames
         return level.getBlockState(center.west(2)).is(Blocks.END_PORTAL_FRAME) ||
                 level.getBlockState(center.east(2)).is(Blocks.END_PORTAL_FRAME);
     }
 
     private void activateFarthestPortal(Level level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render
-
         // 1. Swap Frames
         for (BlockPos pos : BlockPos.betweenClosed(center.offset(-3, 0, -3), center.offset(3, 0, 3))) {
             if (level.getBlockState(pos).is(Blocks.END_PORTAL_FRAME)) {

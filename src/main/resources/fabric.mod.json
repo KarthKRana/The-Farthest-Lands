@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "the-farthest-lands",
+	"id": "thefarthestlands",
 	"version": "${version}",
 	"name": "The Farthest Lands",
 	"description": "Do you want to reach the Farthest?",
@@ -26,9 +26,9 @@
 		]
 	},
 	"mixins": [
-		"the-farthest-lands.mixins.json",
+		"thefarthestlands.mixins.json",
 		{
-			"config": "the-farthest-lands.client.mixins.json",
+			"config": "thefarthestlands.client.mixins.json",
 			"environment": "client"
 		}
 	],
