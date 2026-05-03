@@ -14,8 +14,7 @@ public class FarSandBlock extends FallingBlock {
     @Override
     public MapCodec<? extends FarSandBlock> codec() { return CODEC; }
 
+    //Gray
     @Override
-    public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) {
-        return 0x808080; // Gray
-    }
+    public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) { return 0x808080; }
 }

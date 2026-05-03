@@ -25,6 +25,10 @@ loom {
 		}
 	}
 
+	runConfigs.all {
+		// Use programArg instead of arg
+		programArg "--offline"
+	}
 }
 
 dependencies {

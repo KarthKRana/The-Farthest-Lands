@@ -1,23 +1,20 @@
 package io.github.insomniac.thefarthestlands.block;
 
-import com.sun.jna.platform.unix.X11;
-import io.github.insomniac.thefarthestlands.TheFarthestLands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ModBlocks {
+    //[[======================================BLOCKS======================================]]\\
     public static final Block FARTHEST_PORTAL_FRAME = registerBlock("farthest_portal_frame",
             new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_PORTAL_FRAME)));
 
     public static final Block FARTHEST_PORTAL = registerBlock("farthest_portal",
             new FarthestPortalBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().strength(-1.0f)));
-
 
     public static final Block FAR_SAND = registerBlock("far_sand",
             new FarSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)

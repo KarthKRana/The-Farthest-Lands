@@ -34,7 +34,7 @@ public class GazingEyeItem extends Item {
                     level.playSound(null, pos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                     if (checkPortalStructure(level, pos)) {
                         farPortalActivated = true;
-                        // TODO: Replace the center 3x3 with "Nihility Portal" blocks
+                        // TODO: Replace the center 3x3 with "Farthest Portal" blocks
                         // instead of the standard End Portal.
                     }
                 }

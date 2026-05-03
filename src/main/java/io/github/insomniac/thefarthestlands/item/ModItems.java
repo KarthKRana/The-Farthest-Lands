@@ -7,10 +7,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
 public class ModItems {
+    //[[======================================ITEMS======================================]]\\
     public static final Item GAZING_EYE = registerItem("gazing_eye",
             new GazingEyeItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(16)));
 
-    // Helper method to make registration cleaner
+
+
+
+    //[[======================================HELPER METHODS======================================]]\\
     private static Item registerItem(String name, Item item) {
         return Registry.register(BuiltInRegistries.ITEM,
                 ResourceLocation.fromNamespaceAndPath("thefarthestlands", name), item);

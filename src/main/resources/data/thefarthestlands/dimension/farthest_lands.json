@@ -2,10 +2,10 @@
   "type": "thefarthestlands:farthest_lands",
   "generator": {
     "type": "minecraft:noise",
-    "settings": "minecraft:overworld",
+    "settings": "thefarthestlands:farthestlands_layout",
     "biome_source": {
       "type": "minecraft:fixed",
-      "biome": "thefarthestlands:nihil_desert"
+      "biome": "thefarthestlands:farthest_desert"
     }
   }
 }
