@@ -1,5 +1,6 @@
 package io.github.insomniac.thefarthestlands.block;
 
+import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +19,7 @@ public class ModBlocks {
 
     public static final Block FAR_SAND = registerBlock("far_sand",
             new FarSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
-                    .sound(SoundType.SOUL_SAND)
+                    .sound(ModSounds.FAR_SAND_SOUNDS) //Custom sfx
             ));
 
     //[[======================================HELPER METHODS======================================]]\\

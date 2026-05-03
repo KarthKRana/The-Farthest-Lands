@@ -1,8 +1,8 @@
 package io.github.insomniac.thefarthestlands.item;
 
 import io.github.insomniac.thefarthestlands.block.ModBlocks;
+import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GazingEyeItem extends Item {
-    // This allows other classes (like your shader controllers) to know if the portal is active
     public static boolean farPortalActivated = false;
 
     public GazingEyeItem(Properties properties) { super(properties); }
@@ -24,18 +23,14 @@ public class GazingEyeItem extends Item {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        // Target the standard Minecraft frame
         if (state.is(Blocks.END_PORTAL_FRAME)) {
-            // Vanilla uses HAS_EYE in Parchment mappings
             if (!state.getValue(EndPortalFrameBlock.HAS_EYE)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.setValue(EndPortalFrameBlock.HAS_EYE, true), 3);
                     context.getItemInHand().shrink(1);
-                    level.playSound(null, pos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 1.0F, 1.0F);
                     if (checkPortalStructure(level, pos)) {
                         farPortalActivated = true;
-                        // TODO: Replace the center 3x3 with "Farthest Portal" blocks
-                        // instead of the standard End Portal.
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -51,7 +46,6 @@ public class GazingEyeItem extends Item {
     private boolean checkPortalStructure(Level level, BlockPos clickedPos) {
         int eyeCount = 0;
         int radius = 5;
-
         // 1. Count the eyes (standard check)
         for (BlockPos pos : BlockPos.betweenClosed(clickedPos.offset(-radius, -1, -radius), clickedPos.offset(radius, 1, radius))) {
             BlockState state = level.getBlockState(pos);
@@ -61,8 +55,7 @@ public class GazingEyeItem extends Item {
         }
 
         if (eyeCount >= 12) {
-            // 2. Find the actual 3x3 center
-            // We scan a small area around the clicked block on the SAME Y level
+            // 2. Find the actual 3x3 center. Then scan a small area around the clicked block on the SAME Y level
             for (int x = -4; x <= 4; x++) {
                 for (int z = -4; z <= 4; z++) {
                     BlockPos potentialCenter = clickedPos.offset(x, 0, z);
@@ -89,11 +82,11 @@ public class GazingEyeItem extends Item {
                 level.getBlockState(pos.east(2)).is(Blocks.END_PORTAL_FRAME);
     }
 
-    private boolean isFrameBorder(Level level, BlockPos center) {
-        // Check if the blocks are ± 2 blocks away are portal frames
-        return level.getBlockState(center.west(2)).is(Blocks.END_PORTAL_FRAME) ||
-                level.getBlockState(center.east(2)).is(Blocks.END_PORTAL_FRAME);
-    }
+//    private boolean isFrameBorder(Level level, BlockPos center) {
+//        // Check if the blocks are ± 2 blocks away are portal frames
+//        return level.getBlockState(center.west(2)).is(Blocks.END_PORTAL_FRAME) ||
+//                level.getBlockState(center.east(2)).is(Blocks.END_PORTAL_FRAME);
+//    }
 
     private void activateFarthestPortal(Level level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render
