@@ -18,6 +18,6 @@ public class ModDimensions {
     );
 
     public static void register() {
-        System.out.println("Registering Dimensions for The Farthest Lands");
+        System.out.println("Registering the Farthestlands");
     }
 }
