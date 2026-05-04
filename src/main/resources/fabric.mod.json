@@ -12,7 +12,7 @@
 		"sources": "https://github.com/The-Farthest-Lands"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/the-farthest-lands/icon.png",
+	"icon": "assets/thefarthestlands/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
