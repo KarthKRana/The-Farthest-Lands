@@ -10,11 +10,9 @@ public class FarSandBlock extends FallingBlock {
     public static final MapCodec<FarSandBlock> CODEC = simpleCodec(FarSandBlock::new);
     public FarSandBlock(Properties properties) { super(properties); }
 
-    //Have to do a CODEC I guess
     @Override
     public MapCodec<? extends FarSandBlock> codec() { return CODEC; }
 
-    //Gray
     @Override
     public int getDustColor(BlockState state, BlockGetter reader, BlockPos pos) { return 0x808080; }
 }

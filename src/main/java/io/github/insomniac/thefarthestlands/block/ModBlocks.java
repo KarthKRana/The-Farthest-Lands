@@ -19,7 +19,8 @@ public class ModBlocks {
 
     public static final Block FAR_SAND = registerBlock("far_sand",
             new FarSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
-                    .sound(ModSounds.FAR_SAND_SOUNDS) //Custom sfx
+                    .sound(ModSounds.FAR_SAND_SOUNDS)
+                    .strength(-1.0f)  // Indestructible by mining
             ));
 
     //[[======================================HELPER METHODS======================================]]\\
