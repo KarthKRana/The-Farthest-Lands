@@ -22,16 +22,15 @@ public class GazingEyeItem extends Item {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
-
+        // Only allow portal to open in the Overworld
+        if (level.dimension() != Level.OVERWORLD) { return InteractionResult.PASS; }
         if (state.is(Blocks.END_PORTAL_FRAME)) {
             if (!state.getValue(EndPortalFrameBlock.HAS_EYE)) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.setValue(EndPortalFrameBlock.HAS_EYE, true), 3);
                     context.getItemInHand().shrink(1);
                     level.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    if (checkPortalStructure(level, pos)) {
-                        farPortalActivated = true;
-                    }
+                    if (checkPortalStructure(level, pos)) { farPortalActivated = true; }
                 }
                 return InteractionResult.SUCCESS;
             }
