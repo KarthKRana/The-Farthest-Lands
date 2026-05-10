@@ -2,6 +2,7 @@ package io.github.insomniac.thefarthestlands;
 
 import io.github.insomniac.thefarthestlands.block.ModBlocks;
 import io.github.insomniac.thefarthestlands.item.ModItems;
+import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import io.github.insomniac.thefarthestlands.world.ModDimensions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -21,7 +22,12 @@ public class TheFarthestLands implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(content -> {
 			content.accept(ModBlocks.FAR_SAND);
 		});
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(content -> {
+			content.accept(ModItems.ARABESQUE_DISC);
+			content.accept(ModItems.SUNKEN_CATHEDRAL_DISC);
+		});
 		ModItems.registerModItems();
+		ModSounds.registerSounds();
 		ModBlocks.registerModBlocks();
 		ModDimensions.register();
 	}

@@ -1,5 +1,6 @@
 package io.github.insomniac.thefarthestlands.world;
 
+import io.github.insomniac.thefarthestlands.TheFarthestLands;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +19,6 @@ public class ModDimensions {
     );
 
     public static void register() {
-        System.out.println("Registering the Farthestlands");
+        TheFarthestLands.LOGGER.info("Registering the Farthestlands");
     }
 }

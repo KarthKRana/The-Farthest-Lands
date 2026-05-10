@@ -1,0 +1,8 @@
+{
+  "sound_event": "thefarthestlands:arabesque",
+  "description": {
+    "translate": "jukebox_song.thefarthestlands.arabesque_disc"
+  },
+  "length_in_seconds": 260,
+  "comparator_output": 1
+}

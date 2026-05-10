@@ -1,0 +1,26 @@
+{
+  "arabesque": {
+    "sounds": [
+      {
+        "name": "thefarthestlands:arabesque",
+        "stream": true
+      }
+    ]
+  },
+  "sunken_cathedral": {
+    "sounds": [
+      {
+        "name": "thefarthestlands:sunken_cathedral",
+        "stream": true
+      }
+    ]
+  },
+  "gazing_eye": {
+    "sounds": [
+      {
+        "name": "thefarthestlands:gazing_eye",
+        "stream": false
+      }
+    ]
+  }
+}

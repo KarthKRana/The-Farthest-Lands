@@ -3,5 +3,9 @@
   "item.thefarthestlands.gazing_eye.desc": "An eye that gazes into your soul",
   "block.thefarthestlands.far_sand": "Far Sand",
   "block.thefarthestlands.farthest_portal": "Farthest Portal",
-  "block.thefarthestlands.farthest_portal_frame": "Farthest Portal Frame"
+  "block.thefarthestlands.farthest_portal_frame": "Farthest Portal Frame",
+  "item.thefarthestlands.arabesque_disc": "Music Disc",
+  "jukebox_song.thefarthestlands.arabesque_disc": "Debussy - Arabesque No. 1",
+  "item.thefarthestlands.sunken_cathedral_disc": "Music Disc",
+  "jukebox_song.thefarthestlands.sunken_cathedral_disc": "Debussy - La Cathédrale Engloutie"
 }

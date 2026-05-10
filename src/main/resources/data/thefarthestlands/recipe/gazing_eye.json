@@ -23,5 +23,31 @@
   "result": {
     "id": "thefarthestlands:gazing_eye",
     "count": 1
-  }
+  },
+  "unlocked_by": [
+    {
+      "has_ender_eye": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": ["minecraft:ender_eye"]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "has_wither_rose": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": ["minecraft:wither_rose"]
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

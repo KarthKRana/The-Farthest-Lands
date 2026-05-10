@@ -34,9 +34,10 @@ public class FarthestPortalBlock extends Block {
             }
             // Using the 1.21.1 teleportTo method
             // The empty set represents 'RelativeArguments' (none in this case)
+            //TODO: change the spawn
             player.teleportTo(
                     destination,
-                    0.5, 100.0, 0.5,
+                    0.5, 50.0, 0.5,
                     Set.of(),
                     0.0f, 0.0f
             );

@@ -1,0 +1,8 @@
+{
+  "sound_event": "thefarthestlands:sunken_cathedral",
+  "description": {
+    "translate": "jukebox_song.thefarthestlands.sunken_cathedral_disc"
+  },
+  "length_in_seconds": 330,
+  "comparator_output": 1
+}

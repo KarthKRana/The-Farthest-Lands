@@ -1,5 +1,6 @@
 package io.github.insomniac.thefarthestlands.block;
 
+import io.github.insomniac.thefarthestlands.TheFarthestLands;
 import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,7 +37,5 @@ public class ModBlocks {
                 new BlockItem(block, new Item.Properties()));
     }
 
-    public static void registerModBlocks() {
-        System.out.println("Registering Blocks for The Farthest Lands");
-    }
+    public static void registerModBlocks() { TheFarthestLands.LOGGER.info("Registering blocks"); }
 }
