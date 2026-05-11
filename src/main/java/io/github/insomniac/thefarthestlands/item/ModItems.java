@@ -1,7 +1,6 @@
 package io.github.insomniac.thefarthestlands.item;
 
 import io.github.insomniac.thefarthestlands.TheFarthestLands;
-import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -10,12 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
-import java.util.Locale;
-
 public class ModItems {
     //[[======================================ITEMS======================================]]\\
     public static final Item GAZING_EYE = registerItem("gazing_eye",
             new GazingEyeItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(16)));
+
+    public static final Item RAW_SHARP_STEEL = registerItem("raw_sharp_steel",
+            new Item(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(64)));
+
 
     public static final Item ARABESQUE_DISC = registerItem("arabesque_disc",
             new Item(new Item.Properties()

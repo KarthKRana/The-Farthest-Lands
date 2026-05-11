@@ -18,6 +18,7 @@ public class TheFarthestLands implements ModInitializer {
 	public void onInitialize() {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(content -> {
 			content.accept(ModItems.GAZING_EYE);
+			content.accept(ModItems.RAW_SHARP_STEEL);
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(content -> {
 			content.accept(ModBlocks.FAR_SAND);
@@ -25,6 +26,7 @@ public class TheFarthestLands implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(content -> {
 			content.accept(ModItems.ARABESQUE_DISC);
 			content.accept(ModItems.SUNKEN_CATHEDRAL_DISC);
+			content.accept(ModItems.GAZING_EYE);
 		});
 		ModItems.registerModItems();
 		ModSounds.registerSounds();
