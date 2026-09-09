@@ -19,6 +19,7 @@ public class TheFarthestLands implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(content -> {
 			content.accept(ModItems.GAZING_EYE);
 			content.accept(ModItems.RAW_SHARP_STEEL);
+			content.accept(ModItems.SHARP_STEEL_INGOT);
 		});
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(content -> {
 			content.accept(ModBlocks.FAR_SAND);

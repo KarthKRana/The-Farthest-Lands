@@ -24,6 +24,7 @@ public class ModBlockModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.ARABESQUE_DISC, ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.SUNKEN_CATHEDRAL_DISC, ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.RAW_SHARP_STEEL, ModelTemplates.FLAT_ITEM);
     }
 }
 

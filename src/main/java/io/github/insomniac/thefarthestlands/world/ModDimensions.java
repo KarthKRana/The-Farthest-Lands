@@ -19,6 +19,6 @@ public class ModDimensions {
     );
 
     public static void register() {
-        TheFarthestLands.LOGGER.info("Registering the Farthestlands");
+        TheFarthestLands.LOGGER.info("Far from registering");
     }
 }

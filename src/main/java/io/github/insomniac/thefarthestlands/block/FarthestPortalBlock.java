@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,12 +33,20 @@ public class FarthestPortalBlock extends Block {
                     destination.setBlock(arrivalPos.offset(x, -1, z), Blocks.OBSIDIAN.defaultBlockState(), 3);
                 }
             }
+            //TODO: Destroy all enchants on all items as soon as you enter
+            //player.getItemBySlot().enchantments().clear();
+
+//            for (int i = 1; i <= EquipmentSlot.; i++) {
+//                player.getItemBySlot(i).enchantments().clear();
+//            }
+
+
             // Using the 1.21.1 teleportTo method
             // The empty set represents 'RelativeArguments' (none in this case)
             //TODO: change the spawn
             player.teleportTo(
                     destination,
-                    0.5, 50.0, 0.5,
+                    0.5, 70.0, 0.5,
                     Set.of(),
                     0.0f, 0.0f
             );

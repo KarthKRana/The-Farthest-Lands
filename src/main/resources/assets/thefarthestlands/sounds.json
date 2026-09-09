@@ -15,10 +15,10 @@
       }
     ]
   },
-  "gazing_eye": {
+  "gazing_eye_placed_on_portal_frame": {
     "sounds": [
       {
-        "name": "thefarthestlands:gazing_eye",
+        "name": "thefarthestlands:gazing_eye_placed_on_portal_frame",
         "stream": false
       }
     ]

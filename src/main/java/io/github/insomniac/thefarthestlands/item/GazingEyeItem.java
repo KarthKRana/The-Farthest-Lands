@@ -81,11 +81,6 @@ public class GazingEyeItem extends Item {
                 level.getBlockState(pos.east(2)).is(Blocks.END_PORTAL_FRAME);
     }
 
-//    private boolean isFrameBorder(Level level, BlockPos center) {
-//        // Check if the blocks are ± 2 blocks away are portal frames
-//        return level.getBlockState(center.west(2)).is(Blocks.END_PORTAL_FRAME) ||
-//                level.getBlockState(center.east(2)).is(Blocks.END_PORTAL_FRAME);
-//    }
 
     private void activateFarthestPortal(Level level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render

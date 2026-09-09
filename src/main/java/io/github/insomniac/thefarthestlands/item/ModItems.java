@@ -15,7 +15,10 @@ public class ModItems {
             new GazingEyeItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(16)));
 
     public static final Item RAW_SHARP_STEEL = registerItem("raw_sharp_steel",
-            new Item(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(64)));
+            new Item(new Item.Properties().rarity(Rarity.COMMON).stacksTo(64)));
+
+    public static final Item SHARP_STEEL_INGOT = registerItem("sharp_steel_ingot",
+            new Item(new Item.Properties().rarity(Rarity.COMMON).stacksTo(64)));
 
 
     public static final Item ARABESQUE_DISC = registerItem("arabesque_disc",
@@ -30,7 +33,7 @@ public class ModItems {
                     .jukeboxPlayable(ResourceKey.create(
                             Registries.JUKEBOX_SONG,
                             ResourceLocation.fromNamespaceAndPath(TheFarthestLands.MOD_ID, "sunken_cathedral")))
-                    .stacksTo(1).rarity(Rarity.EPIC)));
+                    .stacksTo(1).rarity(Rarity.RARE)));
 
     //[[======================================HELPER METHODS======================================]]\\
     private static Item registerItem(String name, Item item) {

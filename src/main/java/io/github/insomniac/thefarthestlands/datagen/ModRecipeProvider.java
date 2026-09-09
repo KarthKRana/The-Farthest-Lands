@@ -17,7 +17,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void buildRecipes(RecipeOutput exporter) {
         // Gazing Eye is crafted from 4x soul soil, 1x wither rose, 3x ghast tear, and 1x eyes of ender
-        // Unlocks when player has EITHER wither rose OR ender eye
+        // Unlocks when player has either a Wither Rose or an Eye of Ender
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GAZING_EYE, 1)
                 .pattern("SWS")
                 .pattern("GEG")
