@@ -22,5 +22,13 @@
         "stream": false
       }
     ]
+  },
+  "farthest_portal_lit": {
+    "sounds": [
+      {
+        "name": "thefarthestlands:farthest_portal_lit",
+        "stream": false
+      }
+    ]
   }
 }

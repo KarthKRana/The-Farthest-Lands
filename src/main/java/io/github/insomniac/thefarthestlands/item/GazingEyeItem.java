@@ -60,6 +60,8 @@ public class GazingEyeItem extends Item {
                     BlockPos potentialCenter = clickedPos.offset(x, 0, z);
                     if (isCorrectPortalCenter(level, potentialCenter)) {
                         activateFarthestPortal(level, potentialCenter);
+                        level.playSound(null, potentialCenter, ModSounds.FARTHEST_PORTAL_LIT,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
                         return true;
                     }
                 }
@@ -70,15 +72,21 @@ public class GazingEyeItem extends Item {
 
     // Helper to find the actual 3x3 hole
     private boolean isCorrectPortalCenter(Level level, BlockPos pos) {
-        // Check if a 3x3 area is all air/replaceable
+        // Check that all 12 frame blocks surrounding this center are filled end portal frames
         for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                if (!level.getBlockState(pos.offset(x, 0, z)).isAir()) { return false; }
-            }
+            if (!isFilledFrame(level, pos.offset(x, 0, -2))) return false;
+            if (!isFilledFrame(level, pos.offset(x, 0, 2))) return false;
         }
-        // Check if there's a frame at least 2 blocks away to verify it's the portal
-        return level.getBlockState(pos.west(2)).is(Blocks.END_PORTAL_FRAME) ||
-                level.getBlockState(pos.east(2)).is(Blocks.END_PORTAL_FRAME);
+        for (int z = -1; z <= 1; z++) {
+            if (!isFilledFrame(level, pos.offset(-2, 0, z))) return false;
+            if (!isFilledFrame(level, pos.offset(2, 0, z))) return false;
+        }
+        return true;
+    }
+
+    private boolean isFilledFrame(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        return state.is(Blocks.END_PORTAL_FRAME) && state.getValue(EndPortalFrameBlock.HAS_EYE);
     }
 
 
