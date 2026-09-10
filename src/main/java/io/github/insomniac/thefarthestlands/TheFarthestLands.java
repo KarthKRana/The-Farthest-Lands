@@ -1,6 +1,7 @@
 package io.github.insomniac.thefarthestlands;
 
 import io.github.insomniac.thefarthestlands.block.ModBlocks;
+import io.github.insomniac.thefarthestlands.block.entity.ModBlockEntities;
 import io.github.insomniac.thefarthestlands.item.ModItems;
 import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import io.github.insomniac.thefarthestlands.world.ModDimensions;
@@ -32,6 +33,7 @@ public class TheFarthestLands implements ModInitializer {
 		ModItems.registerModItems();
 		ModSounds.registerSounds();
 		ModBlocks.registerModBlocks();
+		ModBlockEntities.register();
 		ModDimensions.register();
 	}
 }

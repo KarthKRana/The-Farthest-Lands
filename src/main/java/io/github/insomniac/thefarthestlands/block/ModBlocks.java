@@ -16,7 +16,7 @@ public class ModBlocks {
             new FarthestPortalFrameBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_PORTAL_FRAME)));
 
     public static final Block FARTHEST_PORTAL = registerBlock("farthest_portal",
-            new FarthestPortalBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().strength(-1.0f)));
+            new FarthestPortal(BlockBehaviour.Properties.ofFullCopy(Blocks.END_PORTAL)));
 
     public static final Block FAR_SAND = registerBlock("far_sand",
             new FarSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)

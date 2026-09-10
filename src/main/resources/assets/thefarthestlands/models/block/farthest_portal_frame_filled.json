@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:block/end_portal_frame_filled",
   "textures": {
-    "particle": "minecraft:block/end_portal_frame_side",
-    "bottom": "minecraft:block/end_stone",
-    "top": "minecraft:block/end_portal_frame_top",
-    "side": "minecraft:block/end_portal_frame_side",
+    "particle": "thefarthestlands:block/farthest_portal_bottom",
+    "bottom": "thefarthestlands:block/farthest_portal_bottom",
+    "top": "thefarthestlands:block/farthest_portal_top",
+    "side": "thefarthestlands:block/farthest_portal_side",
     "eye": "thefarthestlands:block/gazing_eye_in_frame"
   }
 }
