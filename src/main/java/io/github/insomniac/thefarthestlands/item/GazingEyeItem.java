@@ -1,5 +1,6 @@
 package io.github.insomniac.thefarthestlands.item;
 
+import io.github.insomniac.thefarthestlands.block.FarthestPortalFrameBlock;
 import io.github.insomniac.thefarthestlands.block.ModBlocks;
 import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -24,18 +25,23 @@ public class GazingEyeItem extends Item {
         BlockState state = level.getBlockState(pos);
         // Only allow portal to open in the Overworld
         if (level.dimension() != Level.OVERWORLD) { return InteractionResult.PASS; }
-        if (state.is(Blocks.END_PORTAL_FRAME)) {
-            if (!state.getValue(EndPortalFrameBlock.HAS_EYE)) {
-                if (!level.isClientSide) {
-                    level.setBlock(pos, state.setValue(EndPortalFrameBlock.HAS_EYE, true), 3);
-                    context.getItemInHand().shrink(1);
-                    level.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    if (checkPortalStructure(level, pos)) { farPortalActivated = true; }
-                }
-                return InteractionResult.SUCCESS;
+        if (canInsertGazingEye(state)) {
+            if (!level.isClientSide) {
+                level.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
+                context.getItemInHand().shrink(1);
+                level.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 0.8F, 1.0F);
+                if (checkPortalStructure(level, pos)) { farPortalActivated = true; }
             }
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+    }
+
+    private boolean canInsertGazingEye(BlockState state) {
+        if (!state.is(Blocks.END_PORTAL_FRAME) && !state.is(ModBlocks.FARTHEST_PORTAL_FRAME)) {
+            return false;
+        }
+        return !state.getValue(EndPortalFrameBlock.HAS_EYE);
     }
 
     /**
@@ -47,8 +53,7 @@ public class GazingEyeItem extends Item {
         int radius = 5;
         // 1. Count the eyes (standard check)
         for (BlockPos pos : BlockPos.betweenClosed(clickedPos.offset(-radius, -1, -radius), clickedPos.offset(radius, 1, radius))) {
-            BlockState state = level.getBlockState(pos);
-            if (state.is(Blocks.END_PORTAL_FRAME) && state.getValue(EndPortalFrameBlock.HAS_EYE)) {
+            if (FarthestPortalFrameBlock.isFilled(level.getBlockState(pos))) {
                 eyeCount++;
             }
         }
@@ -72,33 +77,28 @@ public class GazingEyeItem extends Item {
 
     // Helper to find the actual 3x3 hole
     private boolean isCorrectPortalCenter(Level level, BlockPos pos) {
-        // Check that all 12 frame blocks surrounding this center are filled end portal frames
+        // Check that all 12 frame blocks surrounding this center are filled farthest portal frames
         for (int x = -1; x <= 1; x++) {
-            if (!isFilledFrame(level, pos.offset(x, 0, -2))) return false;
-            if (!isFilledFrame(level, pos.offset(x, 0, 2))) return false;
+            if (!FarthestPortalFrameBlock.isFilled(level.getBlockState(pos.offset(x, 0, -2)))) return false;
+            if (!FarthestPortalFrameBlock.isFilled(level.getBlockState(pos.offset(x, 0, 2)))) return false;
         }
         for (int z = -1; z <= 1; z++) {
-            if (!isFilledFrame(level, pos.offset(-2, 0, z))) return false;
-            if (!isFilledFrame(level, pos.offset(2, 0, z))) return false;
+            if (!FarthestPortalFrameBlock.isFilled(level.getBlockState(pos.offset(-2, 0, z)))) return false;
+            if (!FarthestPortalFrameBlock.isFilled(level.getBlockState(pos.offset(2, 0, z)))) return false;
         }
         return true;
     }
 
-    private boolean isFilledFrame(Level level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        return state.is(Blocks.END_PORTAL_FRAME) && state.getValue(EndPortalFrameBlock.HAS_EYE);
-    }
-
-
     private void activateFarthestPortal(Level level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render
-        // 1. Swap Frames
+        // Convert leftover vanilla frames in the ring, preserving facing and the gazing-eye model.
         for (BlockPos pos : BlockPos.betweenClosed(center.offset(-3, 0, -3), center.offset(3, 0, 3))) {
-            if (level.getBlockState(pos).is(Blocks.END_PORTAL_FRAME)) {
-                level.setBlock(pos, ModBlocks.FARTHEST_PORTAL_FRAME.defaultBlockState(), 3);
+            BlockState state = level.getBlockState(pos);
+            if (state.is(Blocks.END_PORTAL_FRAME)) {
+                level.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
             }
         }
-        // 2. Spawn Portal Blocks
+        // Spawn Portal Blocks
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 BlockPos p = center.offset(x, 0, z);

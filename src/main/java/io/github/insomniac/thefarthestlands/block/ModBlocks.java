@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ModBlocks {
     //[[======================================BLOCKS======================================]]\\
-    public static final Block FARTHEST_PORTAL_FRAME = registerBlock("farthest_portal_frame",
-            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.END_PORTAL_FRAME)));
+    public static final FarthestPortalFrameBlock FARTHEST_PORTAL_FRAME = registerBlock("farthest_portal_frame",
+            new FarthestPortalFrameBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.END_PORTAL_FRAME)));
 
     public static final Block FARTHEST_PORTAL = registerBlock("farthest_portal",
             new FarthestPortalBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().strength(-1.0f)));
@@ -25,7 +25,7 @@ public class ModBlocks {
             ));
 
     //[[======================================HELPER METHODS======================================]]\\
-    private static Block registerBlock(String name, Block block) {
+    private static <T extends Block> T registerBlock(String name, T block) {
         registerBlockItem(name, block);
         return Registry.register(BuiltInRegistries.BLOCK,
                 ResourceLocation.fromNamespaceAndPath("thefarthestlands", name), block);

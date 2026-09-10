@@ -16,7 +16,7 @@ public class ModBlockModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModels) {
         blockModels.createTrivialCube(ModBlocks.FAR_SAND);
-        blockModels.createTrivialCube(ModBlocks.FARTHEST_PORTAL_FRAME);
+        // Farthest portal frame models are handwritten (end-portal-frame geometry + custom eye).
         blockModels.createTrivialCube(ModBlocks.FARTHEST_PORTAL);
     }
 
