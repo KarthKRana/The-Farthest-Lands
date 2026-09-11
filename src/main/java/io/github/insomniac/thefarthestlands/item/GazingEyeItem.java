@@ -1,9 +1,13 @@
 package io.github.insomniac.thefarthestlands.item;
 
+import io.github.insomniac.thefarthestlands.advancement.ModCriteria;
 import io.github.insomniac.thefarthestlands.block.FarthestPortalFrameBlock;
 import io.github.insomniac.thefarthestlands.block.ModBlocks;
 import io.github.insomniac.thefarthestlands.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -12,9 +16,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.joml.Vector3f;
 
 public class GazingEyeItem extends Item {
     public static boolean farPortalActivated = false;
+    private static final DustParticleOptions DARK_GRAY_DUST =
+            new DustParticleOptions(new Vector3f(0.22f, 0.22f, 0.22f), 1.2f);
 
     public GazingEyeItem(Properties properties) { super(properties); }
 
@@ -26,15 +33,28 @@ public class GazingEyeItem extends Item {
         // Only allow portal to open in the Overworld
         if (level.dimension() != Level.OVERWORLD) { return InteractionResult.PASS; }
         if (canInsertGazingEye(state)) {
-            if (!level.isClientSide) {
-                level.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
                 context.getItemInHand().shrink(1);
-                level.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 0.8F, 1.0F);
-                if (checkPortalStructure(level, pos)) { farPortalActivated = true; }
+                serverLevel.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 0.8F, 1.0F);
+                spawnGazingEyeParticles(serverLevel, pos);
+                if (checkPortalStructure(serverLevel, pos)) {
+                    farPortalActivated = true;
+                    if (context.getPlayer() instanceof ServerPlayer player) {
+                        ModCriteria.THE_END_OF_IT_ALL.trigger(player);
+                    }
+                }
             }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+    }
+
+    private void spawnGazingEyeParticles(ServerLevel level, BlockPos pos) {
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 0.95;
+        double z = pos.getZ() + 0.5;
+        level.sendParticles(DARK_GRAY_DUST, x, y, z, 24, 0.28, 0.18, 0.28, 0.02);
     }
 
     private boolean canInsertGazingEye(BlockState state) {
@@ -48,7 +68,7 @@ public class GazingEyeItem extends Item {
      * Scans a 10-block radius around the placed eye.
      * If 12 filled frames are found, the portal is considered complete.
      */
-    private boolean checkPortalStructure(Level level, BlockPos clickedPos) {
+    private boolean checkPortalStructure(ServerLevel level, BlockPos clickedPos) {
         int eyeCount = 0;
         int radius = 5;
         // 1. Count the eyes (standard check)
@@ -89,7 +109,7 @@ public class GazingEyeItem extends Item {
         return true;
     }
 
-    private void activateFarthestPortal(Level level, BlockPos center) {
+    private void activateFarthestPortal(ServerLevel level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render
         // Convert leftover vanilla frames in the ring, preserving facing and the gazing-eye model.
         for (BlockPos pos : BlockPos.betweenClosed(center.offset(-3, 0, -3), center.offset(3, 0, 3))) {
@@ -103,6 +123,12 @@ public class GazingEyeItem extends Item {
             for (int z = -1; z <= 1; z++) {
                 BlockPos p = center.offset(x, 0, z);
                 level.setBlock(p, ModBlocks.FARTHEST_PORTAL.defaultBlockState(), 3);
+            }
+        }
+        // Burst dark-gray dust from every filled frame in the ring.
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-3, 0, -3), center.offset(3, 0, 3))) {
+            if (FarthestPortalFrameBlock.isFilled(level.getBlockState(pos))) {
+                spawnGazingEyeParticles(level, pos.immutable());
             }
         }
     }

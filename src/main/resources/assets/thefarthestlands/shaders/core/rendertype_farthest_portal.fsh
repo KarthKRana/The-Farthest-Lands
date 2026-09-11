@@ -27,8 +27,12 @@ const float GRAYSCALE_AMOUNT = 1.0;
 // Multiplies the final brightness. 1.0 matches vanilla intensity.
 const float BRIGHTNESS = 1.0;
 
+// Solid fill behind the scrolling star layers. Vanilla End Portal uses a
+// nearly black sky texture here — raise this toward 1.0 for lighter gray.
+const vec3 BACKGROUND_COLOR = vec3(0.17);
+
 // How fast the inner layers scroll. Vanilla uses 1.5.
-const float SCROLL_SPEED = 1.5;
+const float SCROLL_SPEED = 1.7;
 
 // Rec. 709 luma weights. Raise the first number to keep more red, etc.
 const vec3 LUMA_WEIGHTS = vec3(0.2126, 0.7152, 0.0722);
@@ -85,9 +89,10 @@ mat4 end_portal_layer(float layer) {
 out vec4 fragColor;
 
 void main() {
-    vec3 color = textureProj(Sampler0, texProj0).rgb * COLORS[0];
+    // Skip the vanilla dark sky (Sampler0) so the portal isn't a black void.
+    vec3 color = BACKGROUND_COLOR;
     for (int i = 0; i < EndPortalLayers; i++) {
-        color += textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i];
+        color += toGray(textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i]);
     }
-    fragColor = vec4(toGray(color) * BRIGHTNESS, 1.0);
+    fragColor = vec4(color * BRIGHTNESS, 1.0);
 }

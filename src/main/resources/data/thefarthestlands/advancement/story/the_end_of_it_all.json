@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:story/follow_ender_eye",
+  "display": {
+    "icon": {
+      "id": "thefarthestlands:gazing_eye",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.thefarthestlands.the_end_of_it_all.title"
+    },
+    "description": {
+      "translate": "advancements.thefarthestlands.the_end_of_it_all.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "opened_portal": {
+      "trigger": "thefarthestlands:the_end_of_it_all"
+    }
+  },
+  "requirements": [
+    [
+      "opened_portal"
+    ]
+  ]
+}

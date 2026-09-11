@@ -1,6 +1,8 @@
 {
   "item.thefarthestlands.gazing_eye": "Gazing Eye",
   "item.thefarthestlands.gazing_eye.desc": "An eye that gazes into your soul",
+  "advancements.thefarthestlands.the_end_of_it_all.title": "The End of it All",
+  "advancements.thefarthestlands.the_end_of_it_all.description": "You got what you wanted",
   "block.thefarthestlands.far_sand": "Far Sand",
   "block.thefarthestlands.farthest_portal": "Farthest Portal",
   "block.thefarthestlands.farthest_portal_frame": "Farthest Portal Frame",

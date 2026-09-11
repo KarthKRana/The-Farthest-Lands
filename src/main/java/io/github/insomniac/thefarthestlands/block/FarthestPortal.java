@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.awt.*;
 import java.util.Set;
 
 /**
@@ -32,27 +33,23 @@ public class FarthestPortal extends BaseEntityBlock {
     public FarthestPortal(Properties properties) { super(properties); }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
+    protected MapCodec<? extends BaseEntityBlock> codec() { return CODEC; }
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FarthestPortalBlockEntity(pos, state);
-    }
+        return new FarthestPortalBlockEntity(pos, state); }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
+    protected VoxelShape getShape(BlockState state, BlockGetter level,
+                                  BlockPos pos, CollisionContext context) {
+        return SHAPE; }
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!level.isClientSide && entity instanceof ServerPlayer player) {
             // In 1.21.1, check if the player is currently NOT changing dimensions
             if (!player.isChangingDimension()) { performTeleport(player); }
-        }
-    }
+        }}
 
     private void performTeleport(ServerPlayer player) {
         ServerLevel destination = player.server.getLevel(ModDimensions.FARTHEST_LANDS_LEVEL_KEY);
@@ -71,8 +68,6 @@ public class FarthestPortal extends BaseEntityBlock {
 //            for (int i = 1; i <= EquipmentSlot.; i++) {
 //                player.getItemBySlot(i).enchantments().clear();
 //            }
-
-
             // Using the 1.21.1 teleportTo method
             // The empty set represents 'RelativeArguments' (none in this case)
             //TODO: change the spawn
@@ -82,6 +77,7 @@ public class FarthestPortal extends BaseEntityBlock {
                     Set.of(),
                     0.0f, 0.0f
             );
+            //player.setRespawnPosition(ModDimensions.THY, arrivalPos, 0.0f, true);
         }
     }
 }
