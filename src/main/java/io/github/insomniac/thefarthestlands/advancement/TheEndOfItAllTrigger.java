@@ -9,7 +9,8 @@ import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
-/** Fired from {@code GazingEyeItem} when a Farthest Portal is successfully lit. */
+// <(O)>
+
 public class TheEndOfItAllTrigger extends SimpleCriterionTrigger<TheEndOfItAllTrigger.TriggerInstance> {
     @Override
     public Codec<TriggerInstance> codec() {

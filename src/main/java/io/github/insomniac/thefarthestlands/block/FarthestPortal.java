@@ -6,6 +6,8 @@ import io.github.insomniac.thefarthestlands.world.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -16,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.awt.*;
 import java.util.Set;
 
 /**
@@ -27,6 +28,7 @@ import java.util.Set;
  * {@code assets/thefarthestlands/shaders/core/rendertype_farthest_portal.*}
  */
 public class FarthestPortal extends BaseEntityBlock {
+    private static boolean clearInventory = true; //Clear the inventory
     public static final MapCodec<FarthestPortal> CODEC = simpleCodec(FarthestPortal::new);
     private static final VoxelShape SHAPE = Block.box(0.0, 6.0, 0.0, 16.0, 12.0, 16.0);
 
@@ -54,26 +56,27 @@ public class FarthestPortal extends BaseEntityBlock {
     private void performTeleport(ServerPlayer player) {
         ServerLevel destination = player.server.getLevel(ModDimensions.FARTHEST_LANDS_LEVEL_KEY);
         if (destination != null) {
-            BlockPos arrivalPos = new BlockPos(0, 100, 0);
-            // Generate the obi platform
-            /**
-            for (int x = -2; x <= 2; x++) {
-                for (int z = -2; z <= 2; z++) {
-                    destination.setBlock(arrivalPos.offset(x, -1, z), Blocks.OBSIDIAN.defaultBlockState(), 3);
-                }
-            }
-             */
-            //TODO: Destroy all items as soon as you enter, save a few exceptions
-            //player.getItemBySlot().enchantments().clear();
-//            for (int i = 1; i <= EquipmentSlot.; i++) {
-//                player.getItemBySlot(i).enchantments().clear();
-//            }
+            //Make the player temporarily invincible so they don't die to fall damage,
+            //oh and blind them >:)
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
+                    200,
+                    99,
+                    false,
+                    false));
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,
+                    200,
+                    1,
+                    false,
+                    false));
+
+            //Clear all items as soon as you enter, save a few exceptions
+            if (clearInventory) { player.getInventory().clearContent(); }
+
             // Using the 1.21.1 teleportTo method
             // The empty set represents 'RelativeArguments' (none in this case)
-            //TODO: change the spawn
             player.teleportTo(
                     destination,
-                    0.5, 70.0, 0.5,
+                    0.0, 170.0, 0.0,
                     Set.of(),
                     0.0f, 0.0f
             );

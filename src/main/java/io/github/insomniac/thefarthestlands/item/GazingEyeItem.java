@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -36,7 +37,7 @@ public class GazingEyeItem extends Item {
             if (level instanceof ServerLevel serverLevel) {
                 serverLevel.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
                 context.getItemInHand().shrink(1);
-                serverLevel.playSound(null, pos, ModSounds.GAZING_EYE_PLACED_ON_PORTAL_FRAME, SoundSource.BLOCKS, 0.8F, 1.0F);
+                serverLevel.playSound(null, pos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 spawnGazingEyeParticles(serverLevel, pos);
                 if (checkPortalStructure(serverLevel, pos)) {
                     farPortalActivated = true;
@@ -50,6 +51,7 @@ public class GazingEyeItem extends Item {
         return InteractionResult.PASS;
     }
 
+    //particles that appear when I place the Gazing Eye in the frame
     private void spawnGazingEyeParticles(ServerLevel level, BlockPos pos) {
         double x = pos.getX() + 0.5;
         double y = pos.getY() + 0.95;
@@ -61,7 +63,8 @@ public class GazingEyeItem extends Item {
         if (!state.is(Blocks.END_PORTAL_FRAME) && !state.is(ModBlocks.FARTHEST_PORTAL_FRAME)) {
             return false;
         }
-        return !state.getValue(EndPortalFrameBlock.HAS_EYE);
+        return true;
+        // --Gazing Eyes can replace Eyes of Ender because the chance of an end portal having no eyes is low
     }
 
     /**
@@ -72,7 +75,8 @@ public class GazingEyeItem extends Item {
         int eyeCount = 0;
         int radius = 5;
         // 1. Count the eyes (standard check)
-        for (BlockPos pos : BlockPos.betweenClosed(clickedPos.offset(-radius, -1, -radius), clickedPos.offset(radius, 1, radius))) {
+        for (BlockPos pos : BlockPos.betweenClosed(
+                clickedPos.offset(-radius, -1, -radius), clickedPos.offset(radius, 1, radius))) {
             if (FarthestPortalFrameBlock.isFilled(level.getBlockState(pos))) {
                 eyeCount++;
             }
@@ -85,8 +89,9 @@ public class GazingEyeItem extends Item {
                     BlockPos potentialCenter = clickedPos.offset(x, 0, z);
                     if (isCorrectPortalCenter(level, potentialCenter)) {
                         activateFarthestPortal(level, potentialCenter);
-                        level.playSound(null, potentialCenter, ModSounds.FARTHEST_PORTAL_LIT,
-                                SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound(null, potentialCenter,
+                                ModSounds.FARTHEST_PORTAL_LIT,
+                                SoundSource.BLOCKS, 1.0F, 1.0F); //The BOOM sfx
                         return true;
                     }
                 }
