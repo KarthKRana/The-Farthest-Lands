@@ -22,7 +22,9 @@ uniform mat4 ProjMat;
 out vec4 texProj0;
 
 void main() {
+    // Clip-space position of this portal quad vertex.
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
+    // Projected UVs for sampling End sky/stars as a "window" in the fragment shader.
     texProj0 = projection_from_position(gl_Position);
 }

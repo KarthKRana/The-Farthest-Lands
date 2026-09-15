@@ -3,7 +3,7 @@
 	"package": "io.github.insomniac.thefarthestlands.client.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+		"ReceivingLevelScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

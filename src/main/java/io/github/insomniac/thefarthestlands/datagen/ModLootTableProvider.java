@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import java.util.concurrent.CompletableFuture;
 
+/** Generates block loot tables (what drops when a block is broken). */
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public ModLootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput, CompletableFuture.completedFuture(null));
@@ -16,4 +17,3 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.FAR_SAND);
     }
 }
-

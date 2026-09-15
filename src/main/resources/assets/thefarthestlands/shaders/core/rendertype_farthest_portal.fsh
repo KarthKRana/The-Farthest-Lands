@@ -37,6 +37,7 @@ const float SCROLL_SPEED = 1.7;
 // Rec. 709 luma weights. Raise the first number to keep more red, etc.
 const vec3 LUMA_WEIGHTS = vec3(0.2126, 0.7152, 0.0722);
 
+/** Mixes {@code color} toward its luminance by {@code GRAYSCALE_AMOUNT}. */
 vec3 toGray(vec3 color) {
     float luma = dot(color, LUMA_WEIGHTS);
     return mix(color, vec3(luma), GRAYSCALE_AMOUNT);
@@ -91,6 +92,7 @@ out vec4 fragColor;
 void main() {
     // Skip the vanilla dark sky (Sampler0) so the portal isn't a black void.
     vec3 color = BACKGROUND_COLOR;
+    // Add each scrolling star layer, desaturated, using vanilla per-layer tints.
     for (int i = 0; i < EndPortalLayers; i++) {
         color += toGray(textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i]);
     }

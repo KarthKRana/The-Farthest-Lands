@@ -11,6 +11,7 @@ public class FarthestPortalRenderer extends TheEndPortalRenderer<FarthestPortalB
         super(context);
     }
 
+    /** Swaps vanilla's end-portal RenderType for ours. */
     @Override
     protected RenderType renderType() {
         return FarthestPortalRenderTypes.farthestPortal();

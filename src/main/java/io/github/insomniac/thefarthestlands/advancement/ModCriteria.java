@@ -6,7 +6,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * Custom advancement criteria. JSON advancements reference these by id
+ * (e.g. {@code thefarthestlands:the_end_of_it_all}).
+ */
 public class ModCriteria {
+    /** Fired when a player lights a Farthest Portal. */
     public static final TheEndOfItAllTrigger THE_END_OF_IT_ALL = register("the_end_of_it_all", new TheEndOfItAllTrigger());
 
     private static <T extends CriterionTrigger<?>> T register(String name, T trigger) {

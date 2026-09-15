@@ -15,17 +15,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 
+/**
+ * Right-click item that fills End Portal Frames with a Gazing Eye.
+ * When 12 filled custom frames surround a 3x3 hole, it lights a Farthest Portal.
+ */
 public class GazingEyeItem extends Item {
+    /** Set when a Farthest Portal successfully lights (currently unused by other classes). */
     public static boolean farPortalActivated = false;
+    /** Dark-gray dust burst used on place and when the portal activates. */
     private static final DustParticleOptions DARK_GRAY_DUST =
             new DustParticleOptions(new Vector3f(0.22f, 0.22f, 0.22f), 1.2f);
 
     public GazingEyeItem(Properties properties) { super(properties); }
 
+    /** Handles placing a Gazing Eye into a portal frame (Overworld only). */
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
@@ -34,16 +40,18 @@ public class GazingEyeItem extends Item {
         // Only allow portal to open in the Overworld
         if (level.dimension() != Level.OVERWORLD) { return InteractionResult.PASS; }
         if (canInsertGazingEye(state)) {
-            if (level instanceof ServerLevel serverLevel) {
+            if (!level.isClientSide) {
+                ServerLevel serverLevel = (ServerLevel) level;
+                // Swap vanilla/custom frame for a filled farthest-portal-frame (keeps facing).
                 serverLevel.setBlock(pos, FarthestPortalFrameBlock.withGazingEye(state), 3);
                 context.getItemInHand().shrink(1);
+                // Same fill sound as placing a vanilla Eye of Ender in a frame.
                 serverLevel.playSound(null, pos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 spawnGazingEyeParticles(serverLevel, pos);
                 if (checkPortalStructure(serverLevel, pos)) {
                     farPortalActivated = true;
-                    if (context.getPlayer() instanceof ServerPlayer player) {
-                        ModCriteria.THE_END_OF_IT_ALL.trigger(player);
-                    }
+                    // Grants the hidden Story advancement "The End of it All".
+                    ModCriteria.THE_END_OF_IT_ALL.trigger((ServerPlayer) context.getPlayer());
                 }
             }
             return InteractionResult.SUCCESS;
@@ -59,6 +67,7 @@ public class GazingEyeItem extends Item {
         level.sendParticles(DARK_GRAY_DUST, x, y, z, 24, 0.28, 0.18, 0.28, 0.02);
     }
 
+    /** True if the clicked block is a vanilla or custom portal frame. */
     private boolean canInsertGazingEye(BlockState state) {
         if (!state.is(Blocks.END_PORTAL_FRAME) && !state.is(ModBlocks.FARTHEST_PORTAL_FRAME)) {
             return false;
@@ -114,6 +123,7 @@ public class GazingEyeItem extends Item {
         return true;
     }
 
+    /** Replaces leftover vanilla frames, fills the 3x3 with portal blocks, and bursts particles. */
     private void activateFarthestPortal(ServerLevel level, BlockPos center) {
         // Flag '3' means: Update the block + Send to clients + Re-render
         // Convert leftover vanilla frames in the ring, preserving facing and the gazing-eye model.

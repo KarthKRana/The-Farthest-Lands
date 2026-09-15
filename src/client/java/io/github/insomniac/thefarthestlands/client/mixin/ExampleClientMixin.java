@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/** Template mixin from the Fabric example mod. Currently does nothing. */
 @Mixin(Minecraft.class)
 public class ExampleClientMixin {
 	@Inject(at = @At("HEAD"), method = "run")

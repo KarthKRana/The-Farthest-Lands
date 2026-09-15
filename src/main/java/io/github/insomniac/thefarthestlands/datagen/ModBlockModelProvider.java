@@ -8,6 +8,7 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
 
+/** Generates simple cube / flat-item models. Complex portal-frame models stay handwritten. */
 public class ModBlockModelProvider extends FabricModelProvider {
     public ModBlockModelProvider(FabricDataOutput output) {
         super(output);
@@ -17,7 +18,7 @@ public class ModBlockModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockModelGenerators blockModels) {
         blockModels.createTrivialCube(ModBlocks.FAR_SAND);
         // Farthest portal frame models are handwritten (end-portal-frame geometry + custom eye).
-        blockModels.createTrivialCube(ModBlocks.FARTHEST_PORTAL);
+        // Farthest portal cube is handwritten so its break particles can use obsidian.
     }
 
     @Override
@@ -27,4 +28,3 @@ public class ModBlockModelProvider extends FabricModelProvider {
         itemModels.generateFlatItem(ModItems.RAW_SHARP_STEEL, ModelTemplates.FLAT_ITEM);
     }
 }
-

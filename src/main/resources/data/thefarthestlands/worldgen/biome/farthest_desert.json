@@ -1,7 +1,7 @@
 {
-  "has_precipitation": false,
-  "temperature": 2.0,
-  "downfall": 0.0,
+  "has_precipitation": true,
+  "temperature": 0.8,
+  "downfall": 0.4,
   "effects": {
     "fog_color": 7829367,
     "sky_color": 7040891,

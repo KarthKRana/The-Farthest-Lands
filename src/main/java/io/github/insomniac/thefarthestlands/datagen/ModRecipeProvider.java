@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 import java.util.concurrent.CompletableFuture;
 
+/** Generates crafting recipes written to {@code data/.../recipe/}. */
 public class ModRecipeProvider extends FabricRecipeProvider {
     public ModRecipeProvider(FabricDataOutput output) {
         super(output, CompletableFuture.completedFuture(null));
@@ -31,4 +32,3 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .save(exporter);
     }
 }
-

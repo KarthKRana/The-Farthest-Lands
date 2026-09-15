@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 public final class FarthestPortalRenderTypeAccess {
     private FarthestPortalRenderTypeAccess() {}
 
+    /** Forwards to Minecraft's package-private {@code RenderType.create}. */
     public static RenderType create(
             String name,
             VertexFormat format,

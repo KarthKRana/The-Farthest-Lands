@@ -6,12 +6,16 @@ import io.github.insomniac.thefarthestlands.datagen.ModRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
+/**
+ * Runs only during {@code ./gradlew runDatagen}. Writes generated JSON (models, loot, recipes)
+ * so we do not have to maintain every data file by hand.
+ */
 public class TheFarthestLandsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModBlockModelProvider::new);
-		pack.addProvider(ModLootTableProvider::new);
-		pack.addProvider(ModRecipeProvider::new);
+		 pack.addProvider(ModLootTableProvider::new);
+		    pack.addProvider(ModRecipeProvider::new);
 	}
 }
